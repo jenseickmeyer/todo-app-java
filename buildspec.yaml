@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      # Build the project
+      - mvn package
+      # Create and upload a deployment package
+      - aws cloudformation package --template-file sam-template.yaml --s3-bucket $S3_BUCKET --output-template-file sam-template-output.yaml
+
+cache:
+  paths:
+    - '/root/.m2/**/*'
+
+artifacts:
+  files:
+    - sam-template-output.yaml
+    - config-*.json
