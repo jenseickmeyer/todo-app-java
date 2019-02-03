@@ -29,7 +29,6 @@ public class TaskRequestHandler {
     try {
       ObjectMapper mapper = new ObjectMapper();
       String jsonInString = mapper.writeValueAsString(task);
-      System.out.println(jsonInString);
 
       Map<String, String> headers = new HashMap<String, String>();
       headers.put("Content-Type", "application/json");
