@@ -10,7 +10,7 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent
 /**
  * Entrypoints for API Gateway
  */
-public class App {
+public class TaskRequestHandler {
   public APIGatewayProxyResponseEvent listTasks(APIGatewayProxyRequestEvent request, Context context) {
     Map<String, String> headers = new HashMap<String, String>();
     headers.put("Content-Type", "text/plain");

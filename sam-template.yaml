@@ -29,7 +29,7 @@ Resources:
       FunctionName:
         Fn::Sub: todo-app-java-list-tasks-${StageName}
       CodeUri: target/todo-app-1.0-SNAPSHOT.jar
-      Handler: com.carpinuslabs.todo.App::listTasks
+      Handler: com.carpinuslabs.todo.handler.TaskRequestHandler::listTasks
       Events:
         List:
           Type: Api
