@@ -1,6 +1,21 @@
 # Simple Java-based Lambda Microservice
 
-## Setup and Build
+# Build and Deploy
+
+## Prerequisites
+
+* AWS CLI
+  * Configure AWS user credentials
+  * Create S3 bucket
+* Docker
+
+## Deploy
+
+```bash
+bash deploy.sh
+```
+
+## Setup a new project
 
 * Create Docker volume for Maven repository
   ```bash
