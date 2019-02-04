@@ -40,4 +40,22 @@ public class TaskRequestHandler {
     }
   }
 
+  public APIGatewayProxyResponseEvent getTask(APIGatewayProxyRequestEvent request, Context context) {
+    Task task = new Task();
+    task.setTitle("Some Task");
+    task.setDescription("Lorem ipsum dolor est");
+
+    try {
+      ObjectMapper mapper = new ObjectMapper();
+      String jsonInString = mapper.writeValueAsString(task);
+
+      Map<String, String> headers = new HashMap<String, String>();
+      headers.put("Content-Type", "application/json");
+      return new APIGatewayProxyResponseEvent().withStatusCode(200).withHeaders(headers).withBody(jsonInString);
+    } catch(JsonProcessingException e) {
+      e.printStackTrace();
+      return new APIGatewayProxyResponseEvent().withStatusCode(500);
+    }
+  }
+
 }

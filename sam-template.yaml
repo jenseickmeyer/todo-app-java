@@ -38,3 +38,19 @@ Resources:
             Method: GET
             RestApiId:
               Ref: RestApi
+
+  GetTaskFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName:
+        Fn::Sub: todo-app-java-get-task-${StageName}
+      CodeUri: target/todo-app-1.0-SNAPSHOT.jar
+      Handler: com.carpinuslabs.todo.handler.TaskRequestHandler::getTask
+      Events:
+        List:
+          Type: Api
+          Properties:
+            Path: /tasks/{id}
+            Method: GET
+            RestApiId:
+              Ref: RestApi
