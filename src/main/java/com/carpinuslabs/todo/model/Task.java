@@ -1,14 +1,31 @@
 package com.carpinuslabs.todo.model;
 
+import java.util.UUID;
+
 public class Task {
+	private String id;
 	private String title;
 	private String description;
 	private boolean done;
-	private String test;
 
 	public Task() {
 		super();
 		this.done = false;
+	}
+	
+	public Task(String title, String description) {
+		this.setId(UUID.randomUUID().toString());
+		this.title = title;
+		this.description = description;
+		this.done = false;
+	}
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public void setTitle(String title) {
@@ -37,13 +54,5 @@ public class Task {
 
 	public boolean isDone() {
 		return this.done;
-	}
-
-	public String getTest() {
-		return test;
-	}
-
-	public void setTest(String test) {
-		this.test = test;
 	}
 }
