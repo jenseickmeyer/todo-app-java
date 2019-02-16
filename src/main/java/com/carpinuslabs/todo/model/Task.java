@@ -1,25 +1,17 @@
 package com.carpinuslabs.todo.model;
 
-import java.util.UUID;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
+@DynamoDBTable(tableName="todo-app-dev-tasks")
 public class Task {
 	private String id;
 	private String title;
 	private String description;
 	private boolean done;
-
-	public Task() {
-		super();
-		this.done = false;
-	}
 	
-	public Task(String title, String description) {
-		this.setId(UUID.randomUUID().toString());
-		this.title = title;
-		this.description = description;
-		this.done = false;
-	}
-	
+	@DynamoDBHashKey(attributeName="id")
 	public String getId() {
 		return id;
 	}
@@ -28,31 +20,31 @@ public class Task {
 		this.id = id;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
+	@DynamoDBAttribute(attributeName="title")
 	public String getTitle() {
 		return this.title;
 	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	
+	public void setTitle(String title) {
+		this.title = title;
 	}
-
+	
+	@DynamoDBAttribute(attributeName="description")
 	public String getDescription() {
 		return this.description;
 	}
-
-	public void setDone() {
-		this.done = true;
+	
+	public void setDescription(String description) {
+		this.description = description;
 	}
-
-	public void setOpen() {
-		this.done = false;
-	}
-
+	
+	@DynamoDBAttribute(attributeName="done")
 	public boolean isDone() {
 		return this.done;
 	}
+	
+	public void setDone(boolean done) {
+		this.done = done;
+	}
+
 }
