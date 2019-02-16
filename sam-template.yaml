@@ -21,19 +21,21 @@ Resources:
     Type: AWS::Serverless::Api
     Properties:
       Name:
-        Fn::Sub: todo-app-java-api-${StageName}
-      StageName: dev
+        Fn::Sub: todo-app-api-${StageName}
+      StageName:
+        Ref: StageName
 
   ListTasksFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName:
-        Fn::Sub: todo-app-java-list-tasks-${StageName}
+        Fn::Sub: todo-app-list-tasks-${StageName}
       CodeUri: target/todo-app-1.0-SNAPSHOT.jar
       Handler: com.carpinuslabs.todo.handler.TaskRequestHandler::listTasks
       Policies:
         DynamoDBReadPolicy:
-          TableName: todo-app-dev-tasks
+          TableName:
+            Ref: TasksTable
       Events:
         List:
           Type: Api
@@ -47,12 +49,13 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName:
-        Fn::Sub: todo-app-java-create-task-${StageName}
+        Fn::Sub: todo-app-create-task-${StageName}
       CodeUri: target/todo-app-1.0-SNAPSHOT.jar
       Handler: com.carpinuslabs.todo.handler.TaskRequestHandler::createTask
       Policies:
         DynamoDBCrudPolicy:
-          TableName: todo-app-dev-tasks
+          TableName:
+            Ref: TasksTable
       Events:
         List:
           Type: Api
@@ -66,12 +69,13 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName:
-        Fn::Sub: todo-app-java-get-task-${StageName}
+        Fn::Sub: todo-app-get-task-${StageName}
       CodeUri: target/todo-app-1.0-SNAPSHOT.jar
       Handler: com.carpinuslabs.todo.handler.TaskRequestHandler::getTask
       Policies:
         DynamoDBReadPolicy:
-          TableName: todo-app-dev-tasks
+          TableName:
+            Ref: TasksTable
       Events:
         List:
           Type: Api
@@ -85,12 +89,13 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName:
-        Fn::Sub: todo-app-java-update-task-${StageName}
+        Fn::Sub: todo-app-update-task-${StageName}
       CodeUri: target/todo-app-1.0-SNAPSHOT.jar
       Handler: com.carpinuslabs.todo.handler.TaskRequestHandler::updateTask
       Policies:
         DynamoDBCrudPolicy:
-          TableName: todo-app-dev-tasks
+          TableName:
+            Ref: TasksTable
       Events:
         List:
           Type: Api
@@ -104,12 +109,13 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName:
-        Fn::Sub: todo-app-java-delete-task-${StageName}
+        Fn::Sub: todo-app-delete-task-${StageName}
       CodeUri: target/todo-app-1.0-SNAPSHOT.jar
       Handler: com.carpinuslabs.todo.handler.TaskRequestHandler::deleteTask
       Policies:
         DynamoDBCrudPolicy:
-          TableName: todo-app-dev-tasks
+          TableName:
+            Ref: TasksTable
       Events:
         List:
           Type: Api
@@ -118,3 +124,15 @@ Resources:
             Method: DELETE
             RestApiId:
               Ref: RestApi
+
+  TasksTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName:
+        Fn::Sub: todo-app-tasks
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
