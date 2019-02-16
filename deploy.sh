@@ -1,6 +1,6 @@
 #!/bin/bash
 
-S3_BUCKET=com.carpinuslabs.sam.deployment
+S3_BUCKET=
 INPUT_FILE=sam-template.yaml
 OUTPUT_FILE=sam-template-output.yaml
 STAGE_NAME=dev

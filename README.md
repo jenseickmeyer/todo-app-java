@@ -10,12 +10,18 @@
 * Docker
 
 ## Deploy
+The script [deploy.sh](deploy.sh) can be used to deploy the application to any AWS account.
+
+As a prerequisite it is necessary to [install](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html) and [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) the AWS CLI. Additionally, it needs a S3 bucket in the same AWS region in which the application will be deployed. The name of the S3 bucket needs to be configured in the Variable `S3_BUCKET` in this script.
+
+The application can be packaged and deployed by running
 
 ```bash
 bash deploy.sh
 ```
 
 ## Setup a new project
+The following steps assume that Maven is run in a Docker container. If Maven is already installed on the machine it can be used directly without using Docker.
 
 * Create Docker volume for Maven repository
   ```bash
@@ -34,7 +40,7 @@ bash deploy.sh
   <dependency>
     <groupId>com.amazonaws</groupId>
     <artifactId>aws-lambda-java-core</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
   </dependency>
   <dependency>
     <groupId>com.amazonaws</groupId>
